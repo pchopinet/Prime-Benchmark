@@ -19,7 +19,7 @@ def boucle_nb_premier(start_number, max, pas):
     for i in range(start_number, max, pas):
         if est_premier(i):
             j += 1
-    print("Il y a", j, "nombres premier entre", start_number, "et", max)
+    print("There are", j, "prime numbers between", start_number, "and", max)
 
 
 start_time = time.time()

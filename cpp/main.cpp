@@ -23,7 +23,7 @@ void boucle_nb_premier(int start_number, int max, int pas) {
             j++;
         }
     }
-    printf("Il y a %d nombres premier entre %d et %d \n",j,start_number,max);
+    printf("There are %d prime numbers between %d and %d \n",j,start_number,max);
 }
 
 int main(int argc, char *argv[])
