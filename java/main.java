@@ -1,6 +1,6 @@
 public class main {
 
-    public static boolean est_premier(int nombre) {
+    public static boolean is_prime(int nombre) {
         if (nombre % 2 == 0)
             return false;
 
@@ -12,10 +12,10 @@ public class main {
         return true;
     }
 
-    public static void boucle_nb_premier(int start_number, int max, int pas, int j[]) {
+    public static void loop_prime(int start_number, int max, int pas, int j[]) {
         int jj = 0;
         for (int i = start_number; i < max; i += pas) {
-            if (est_premier(i)) {
+            if (is_prime(i)) {
                 jj++;
                 //System.out.println(i);
             }
@@ -32,7 +32,7 @@ public class main {
         for (int i = 0; i < nombre_thread; i++) {
             int k = i;
 
-            tab_t[i] = new Thread(() -> boucle_nb_premier(k, max, nombre_thread, j));
+            tab_t[i] = new Thread(() -> loop_prime(k, max, nombre_thread, j));
             tab_t[i].start();
         }
 
