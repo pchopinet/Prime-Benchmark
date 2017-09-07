@@ -27,7 +27,7 @@ public class main {
         int j[] = new int[1];
         j[0] = 0;
         int start_number = 1;
-        System.out.println(max);
+        System.out.println("Prime Benchmark : " + max);
         Thread tab_t[] = new Thread[nombre_thread];
         for (int i = 0; i < nombre_thread; i++) {
             int k = i;
@@ -44,7 +44,7 @@ public class main {
             e.printStackTrace();
         }
 
-        System.out.println("Il y a " + j[0] + " nombres premier entre " + start_number + " et " + max);
+        System.out.println("There are " + j[0] + " prime numbers between " + start_number + " and " + max);
 
     }
 
