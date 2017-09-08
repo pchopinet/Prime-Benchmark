@@ -16,7 +16,7 @@ bool is_prime(int nombre) {
         }
     }
     return true;
-    }
+}
 
 void loop_prime(int start_number, int max, int pas,int * j) {
     int jj=0;
