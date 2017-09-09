@@ -1,11 +1,11 @@
 public class main {
 
-    public static boolean is_prime(int nombre) {
-        if (nombre % 2 == 0)
+    public static boolean is_prime(int number) {
+        if (number % 2 == 0)
             return false;
 
-        for (int i = 3; i < Math.sqrt(nombre) + 1; i += 2) {
-            if (nombre % i == 0) {
+        for (int i = 3; i < Math.sqrt(number) + 1; i += 2) {
+            if (number % i == 0) {
                 return false;
             }
         }

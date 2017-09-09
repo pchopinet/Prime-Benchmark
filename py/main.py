@@ -3,7 +3,6 @@ from math import sqrt
 
 
 def is_prime(nombre):
-    # print("Test du nombre :", nombre)
 
     if nombre % 2 == 0:
         return False
@@ -27,5 +26,5 @@ start_time = time.time()
 loop_prime(1, 100000000, 1)
 
 end_time = time.time()
-temps = end_time - start_time
-print(temps)
+time_exec = end_time - start_time
+print(time_exec)

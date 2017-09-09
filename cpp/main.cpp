@@ -6,12 +6,12 @@
 #include <thread>
 #include <vector>
 
-bool is_prime(int nombre) {
-    if (nombre % 2 == 0)
+bool is_prime(int number) {
+    if (number % 2 == 0)
         return false;
 
-    for (int i = 3; i < sqrt(nombre) + 1; i += 2) {
-        if (nombre % i == 0) {
+    for (int i = 3; i < sqrt(number) + 1; i += 2) {
+        if (number % i == 0) {
             return false;
         }
     }
@@ -28,16 +28,16 @@ void loop_prime(int start_number, int max, int pas,int * j) {
     (*j)+=jj;
 }
 
-void go(const int max, const int nombre_thread){
+void go(const int max, const int number_thread){
     int j = 0;
     printf("Prime Benchmark : %d\n", max);
-    std::vector<std::thread> tab_t(nombre_thread);
+    std::vector<std::thread> tab_t(number_thread);
     int i = 0;
-    for(i;i<nombre_thread;i++){
-        tab_t[i] = std::thread(loop_prime,i,max,nombre_thread,&j);
+    for(i;i<number_thread;i++){
+        tab_t[i] = std::thread(loop_prime,i,max,number_thread,&j);
     }
 
-    for(i=0;i<nombre_thread;i++){
+    for(i=0;i<number_thread;i++){
         tab_t[i].join();
     }
     printf("There are %d prime numbers between 1 and %d \n",j,max);
