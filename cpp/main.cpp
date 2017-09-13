@@ -9,8 +9,8 @@
 bool is_prime(int number) {
     if (number % 2 == 0)
         return false;
-
-    for (int i = 3; i < sqrt(number) + 1; i += 2) {
+    double max = sqrt(number) + 1;
+    for (int i = 3; i < max; i += 2) {
         if (number % i == 0) {
             return false;
         }

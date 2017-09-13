@@ -13,7 +13,8 @@ func is_prime(number int) bool {
 	if number%2 == 0 {
 		return false
 	}
-	for i := 3; i < int(math.Sqrt(float64(number)))+1; i++ {
+	max := int(math.Sqrt(float64(number)))+1
+	for i := 3; i < max ; i++ {
 		if number%i == 0 {
 			return false
 		}
@@ -47,7 +48,7 @@ func launch(max, number_thread int) {
 
 func main() {
 	start := time.Now()
-	launch(100000000, 4)
+	launch(100000000, 8)
 	t := time.Now()
 	elapsed := t.Sub(start)
 	fmt.Println(elapsed, "sec")
