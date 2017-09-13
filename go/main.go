@@ -1,11 +1,54 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+	"sync"
+	"time"
+)
 
-func is_prime(number int)  {
+var wg sync.WaitGroup
 
+func is_prime(number int) bool {
+	if number%2 == 0 {
+		return false
+	}
+	for i := 3; i < int(math.Sqrt(float64(number)))+1; i++ {
+		if number%i == 0 {
+			return false
+		}
+	}
+	return true
+}
+
+func loop_prime(start_number, max, pas int, j *int) {
+	defer wg.Done()
+	var jj int
+	for i := start_number; i < max; i += pas {
+		if is_prime(i) {
+			jj++
+		}
+	}
+	*j += jj
+}
+
+func launch(max, number_thread int) {
+	var j int
+	fmt.Println("Prime Benchmark : ", max)
+	wg.Add(number_thread)
+	for i := 0; i < number_thread; i++ {
+		k := i
+		go loop_prime(k, max, number_thread, &j)
+	}
+	wg.Wait()
+
+	fmt.Println("There are", j, "prime numbers between", 1, "and", max);
 }
 
 func main() {
-	fmt.Println("Hello world")
+	start := time.Now()
+	launch(100000000, 4)
+	t := time.Now()
+	elapsed := t.Sub(start)
+	fmt.Println(elapsed, "sec")
 }

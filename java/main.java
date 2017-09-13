@@ -23,20 +23,20 @@ public class main {
         j[0] += jj;
     }
 
-    public static void go(int max, int nombre_thread) {
+    public static void go(int max, int number_thread) {
         int j[] = new int[1];
         j[0] = 0;
         System.out.println("Prime Benchmark : " + max);
-        Thread tab_t[] = new Thread[nombre_thread];
-        for (int i = 0; i < nombre_thread; i++) {
+        Thread tab_t[] = new Thread[number_thread];
+        for (int i = 0; i < number_thread; i++) {
             int k = i;
 
-            tab_t[i] = new Thread(() -> loop_prime(k, max, nombre_thread, j));
+            tab_t[i] = new Thread(() -> loop_prime(k, max, number_thread, j));
             tab_t[i].start();
         }
 
         try {
-            for (int i = 0; i < nombre_thread; i++) {
+            for (int i = 0; i < number_thread; i++) {
                 tab_t[i].join();
             }
         } catch (InterruptedException e) {
@@ -50,7 +50,7 @@ public class main {
     public static void main(String[] args) {
         long debut = System.currentTimeMillis();
 
-        go(100000000, 8);
+        go(100000000, 4);
 
         long fin = System.currentTimeMillis();
         double temps = (fin - debut) / 1000;
