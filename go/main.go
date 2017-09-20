@@ -30,6 +30,7 @@ func loop_prime(start_number, max, pas int, j *int) {
 			jj++
 		}
 	}
+	fmt.Println(jj)
 	*j += jj
 }
 
@@ -37,9 +38,9 @@ func launch(max, number_thread int) {
 	var j int
 	fmt.Println("Prime Benchmark : ", max)
 	wg.Add(number_thread)
-	for i := 0; i < number_thread; i++ {
-		k := i
-		go loop_prime(k, max, number_thread, &j)
+	for i := 0; i < number_thread*2; i+=2 {
+		k := i+1
+		go loop_prime(k, max, number_thread*2, &j)
 	}
 	wg.Wait()
 
