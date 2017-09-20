@@ -1,6 +1,6 @@
-#include <QCoreApplication>
-#include <stdio.h>      /* printf */
-#include <math.h>       /* sqrt */
+//#include <QCoreApplication>
+#include <stdio.h>
+#include <math.h>
 #include <time.h>
 #include <iostream>
 #include <thread>
@@ -33,8 +33,9 @@ void go(const int max, const int number_thread){
     printf("Prime Benchmark : %d\n", max);
     std::vector<std::thread> tab_t(number_thread);
     int i = 0;
-    for(i;i<number_thread;i++){
-        tab_t[i] = std::thread(loop_prime,i,max,number_thread,&j);
+    for(i;i<number_thread*2;i+=2){
+        int k = i+1;
+        tab_t[i/2] = std::thread(loop_prime,k,max,number_thread*2,&j);
     }
 
     for(i=0;i<number_thread;i++){
@@ -49,16 +50,16 @@ void go(const int max, const int number_thread){
 int main(int argc, char *argv[])
 {
 
-    QCoreApplication a(argc, argv);
+    //QCoreApplication a(argc, argv);
     time_t timeStart = time(0);
 
     go(100000000,8);
 
-    //loop_prime(1,100000000,1);
     time_t timeEnd = time(0);
 
     float R = (timeEnd - timeStart);
-    std::cout << R <<std::string(" sec")<<std::endl;
+    printf("%f sec\n",R);;
 
-    return a.exec();
+    //return a.exec();
+    return 0;
 }
