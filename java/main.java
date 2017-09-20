@@ -4,7 +4,9 @@ public class main {
         if (number % 2 == 0)
             return false;
 
-        for (int i = 3; i < Math.sqrt(number) + 1; i += 2) {
+        double max = Math.sqrt(number)+1;
+
+        for (int i = 3; i < max ; i += 2) {
             if (number % i == 0) {
                 return false;
             }
@@ -20,6 +22,7 @@ public class main {
                 //System.out.println(i);
             }
         }
+        System.out.println(jj);
         j[0] += jj;
     }
 
@@ -28,11 +31,11 @@ public class main {
         j[0] = 0;
         System.out.println("Prime Benchmark : " + max);
         Thread tab_t[] = new Thread[number_thread];
-        for (int i = 0; i < number_thread; i++) {
-            int k = i;
+        for (int i = 0; i < number_thread*2; i+=2) {
+            int k = i+1;
 
-            tab_t[i] = new Thread(() -> loop_prime(k, max, number_thread, j));
-            tab_t[i].start();
+            tab_t[i/2] = new Thread(() -> loop_prime(k, max, number_thread*2, j));
+            tab_t[i/2].start();
         }
 
         try {
@@ -50,7 +53,7 @@ public class main {
     public static void main(String[] args) {
         long debut = System.currentTimeMillis();
 
-        go(100000000, 4);
+        Alternative.go(10000000, 1);
 
         long fin = System.currentTimeMillis();
         double temps = (fin - debut) / 1000;

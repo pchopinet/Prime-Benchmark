@@ -44,3 +44,13 @@ java/out/
 out/
 
 build/
+
+\.vs/
+
+cs/bin/
+
+cs/obj/
+
+*.csproj
+
+*.sln
