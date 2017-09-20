@@ -53,7 +53,7 @@ public class main {
     public static void main(String[] args) {
         long debut = System.currentTimeMillis();
 
-        Alternative.go(10000000, 1);
+        go(100000000, 8);
 
         long fin = System.currentTimeMillis();
         double temps = (fin - debut) / 1000;
