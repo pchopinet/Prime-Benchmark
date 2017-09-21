@@ -23,7 +23,7 @@ namespace cs
             return true;
         }
 
-        static void loop_prime(int start_number, int max, int pas,ref int j)
+        static void loop_prime(int start_number, int max, int pas, ref int j)
         {
             int jj = 0;
             for (int i = start_number; i < max; i += pas)

@@ -1,6 +1,6 @@
 import time
 from math import sqrt
-from threading import Thread
+import multiprocessing as mp
 import queue
 
 
@@ -28,15 +28,17 @@ def go(max, number_thread):
     print("Prime Benchmark :", max)
 
     tab_t = []
-    q = queue.Queue()
+    q = mp.Queue()
     for i in range(0, number_thread * 2, 2):
         k = i + 1
-        t = Thread(target=loop_prime, args=(k, max, number_thread * 2, q))
-        t.start()
+        t = mp.Process(target=loop_prime, args=(k, max, number_thread * 2, q))
         tab_t.append(t)
 
-    for i in range(number_thread):
-        tab_t[i].join()
+    for t in tab_t:
+        t.start()
+
+    for t in tab_t:
+        t.join()
 
     while not q.empty():
         j += q.get()
@@ -44,10 +46,14 @@ def go(max, number_thread):
     print("There are", j, "prime numbers between", 1, "and", max)
 
 
-start_time = time.time()
+def __main__():
+    if __name__ == '__main__':
+        start_time = time.time()
 
-go(100000000, 8)
+        go(10000000, 4)
 
-end_time = time.time()
-time_exec = end_time - start_time
-print(time_exec)
+        end_time = time.time()
+        time_exec = end_time - start_time
+        print(time_exec)
+
+__main__()
