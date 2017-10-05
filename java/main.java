@@ -1,6 +1,6 @@
 public class main {
 
-    public static boolean is_prime(int number) {
+    static boolean is_prime(int number) {
         if (number % 2 == 0)
             return false;
 
@@ -14,7 +14,7 @@ public class main {
         return true;
     }
 
-    public static void loop_prime(int start_number, int max, int pas, int j[]) {
+    static void loop_prime(int start_number, int max, int pas, int j[]) {
         int jj = 0;
         for (int i = start_number; i < max; i += pas) {
             if (is_prime(i)) {
@@ -26,7 +26,7 @@ public class main {
         j[0] += jj;
     }
 
-    public static void go(int max, int number_thread) {
+    static void go(int max, int number_thread) {
         int j[] = new int[1];
         j[0] = 0;
         System.out.println("Prime Benchmark : " + max);
@@ -53,7 +53,7 @@ public class main {
     public static void main(String[] args) {
         long debut = System.currentTimeMillis();
 
-        go(10000000, 4);
+        go(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
 
         long fin = System.currentTimeMillis();
         double temps = (fin - debut) / 1000;
