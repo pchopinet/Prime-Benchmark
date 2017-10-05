@@ -65,10 +65,11 @@ namespace cs
         static void Main(string[] args)
         {
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            go(100000000, 8);
+            
+            go(Int32.Parse(args[0]), Int32.Parse(args[1]));
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
-            Console.WriteLine(elapsedMs/1000);
+            Console.WriteLine(elapsedMs/1000 + " sec");
             Console.ReadKey();
         }
     }
