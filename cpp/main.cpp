@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
     //QCoreApplication a(argc, argv);
     time_t timeStart = time(0);
 
-    go(100000000,8);
+    go(atoi(argv[1]),atoi(argv[2]));
 
     time_t timeEnd = time(0);
 
