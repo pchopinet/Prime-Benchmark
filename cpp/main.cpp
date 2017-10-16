@@ -6,6 +6,32 @@
 #include <thread>
 #include <vector>
 
+using namespace std;
+
+bool is_prime(int number);
+void loop_prime(int start_number, int max, int pas,int * j);
+void go(const int max, const int number_thread);
+
+/*
+    argv[1] = limit
+    argv[2] = Thread number
+*/
+int main(int argc, char *argv[]) {
+
+    //QCoreApplication a(argc, argv);
+    time_t timeStart = time(0);
+
+    go(atoi(argv[1]),atoi(argv[2]));
+
+    time_t timeEnd = time(0);
+
+    float R = (timeEnd - timeStart);
+    printf("%f sec\n",R);;
+
+    //return a.exec();
+    return 0;
+}
+
 bool is_prime(int number) {
     if (number % 2 == 0)
         return false;
@@ -28,38 +54,18 @@ void loop_prime(int start_number, int max, int pas,int * j) {
     (*j)+=jj;
 }
 
-void go(const int max, const int number_thread){
+void go(const int max, const int number_thread) {
     int j = 0;
     printf("Prime Benchmark : %d\n", max);
-    std::vector<std::thread> tab_t(number_thread);
-    int i = 0;
-    for(i;i<number_thread*2;i+=2){
+    vector<thread> tab_t(number_thread);
+    int i;
+    for(i=0;i<number_thread*2;i+=2){
         int k = i+1;
-        tab_t[i/2] = std::thread(loop_prime,k,max,number_thread*2,&j);
+        tab_t[i/2] = thread(loop_prime,k,max,number_thread*2,&j);
     }
 
     for(i=0;i<number_thread;i++){
         tab_t[i].join();
     }
     printf("There are %d prime numbers between 1 and %d \n",j,max);
-}
-
-
-
-
-int main(int argc, char *argv[])
-{
-
-    //QCoreApplication a(argc, argv);
-    time_t timeStart = time(0);
-
-    go(atoi(argv[1]),atoi(argv[2]));
-
-    time_t timeEnd = time(0);
-
-    float R = (timeEnd - timeStart);
-    printf("%f sec\n",R);;
-
-    //return a.exec();
-    return 0;
 }
