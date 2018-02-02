@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <time.h>
-
-using namespace std;
+#include <stdlib.h>
 
 __device__ bool is_prime(int number);
 __global__ void loop_prime(int max,int pas, int * j);
@@ -30,7 +29,7 @@ __device__
 bool is_prime(int number) {
     if (number % 2 == 0)
         return false;
-    double max = number/2;
+    double max = sqrtf(number)+1;
     for (int i = 3; i < max; i += 2) {
         if (number % i == 0) {
             return false;
@@ -40,21 +39,19 @@ bool is_prime(int number) {
 }
 __global__
 void loop_prime(int max,int pas,int * j) {
-    int jj=0;
     for (int i = blockIdx.x; i < max; i += pas) {
         if (is_prime(i)) {
-            jj++;
+            j[blockIdx.x]++;
         }
     }
-    (*j)+=jj;
+    //printf("%d ",j[blockIdx.x]);
 }
 
 void go(const int max, const int number_thread) {
     int j = 0;
-    int ha[number_thread];
-
     printf("Prime Benchmark : %d\n", max);
 
+    int ha[number_thread];
     int *da;
     cudaMalloc((void **)&da, number_thread*sizeof(int));
 
@@ -67,12 +64,13 @@ void go(const int max, const int number_thread) {
     loop_prime<<<number_thread, 1>>>(max,number_thread,da);
 
     cudaMemcpy(ha, da, number_thread*sizeof(int), cudaMemcpyDeviceToHost);
-
+    
+    
     for (int i = 0; i<number_thread; ++i) {
         j+=ha[i];
     }
 
     cudaFree(da);
 
-    printf("There are %d prime numbers between 1 and %d \n",j,max);
+    printf("\nThere are %d prime numbers between 1 and %d \n",j,max);
 }
