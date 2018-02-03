@@ -57,3 +57,5 @@ cs/obj/
 *.sln
 
 c/CMakeLists\.txt
+
+prime_*
