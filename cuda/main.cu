@@ -4,15 +4,14 @@
 
 __device__ bool is_prime(int number);
 __global__ void loop_prime(int max,int pas, int * j);
-void go(const int max, const int number_thread);
+void go(const int max, const int number_block);
 
 /*
     argv[1] = limit
-    argv[2] = Thread number
+    argv[2] = Number of block
 */
 int main(int argc, char *argv[]) {
 
-    //QCoreApplication a(argc, argv);
     time_t timeStart = time(0);
 
     go(atoi(argv[1]),atoi(argv[2]));
@@ -22,7 +21,6 @@ int main(int argc, char *argv[]) {
     float R = (timeEnd - timeStart);
     printf("%f sec\n",R);;
 
-    //return a.exec();
     return 0;
 }
 __device__
@@ -53,17 +51,16 @@ void loop_prime(int max,int pas,int * j) {
     //printf("%d ",j[index]);
 }
 
-void go(const int max, const int number_thread) {
-    int nbBlock = number_thread;
+void go(const int max, const int number_block) {
+    int nbBlock = number_block;
     int nbThread = 64;
     int nb = nbBlock * nbThread;
-
     int j = 0;
+
     printf("Prime Benchmark : %d\n", max);
 
     int ha[nb];
     int *da;
-
 
     cudaMalloc((void **)&da, nb*sizeof(int));
 

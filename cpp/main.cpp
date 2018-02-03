@@ -18,7 +18,6 @@ void go(const int max, const int number_thread);
 */
 int main(int argc, char *argv[]) {
 
-    //QCoreApplication a(argc, argv);
     time_t timeStart = time(0);
 
     go(atoi(argv[1]),atoi(argv[2]));
@@ -28,7 +27,6 @@ int main(int argc, char *argv[]) {
     float R = (timeEnd - timeStart);
     printf("%f sec\n",R);;
 
-    //return a.exec();
     return 0;
 }
 
