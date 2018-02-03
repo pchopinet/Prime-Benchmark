@@ -11,7 +11,7 @@ void go(const int max, const int number_thread);
     argv[2] = Thread number
 */
 int main(int argc, char *argv[]) {
-    
+
     //QCoreApplication a(argc, argv);
     time_t timeStart = time(0);
 
@@ -29,7 +29,7 @@ __device__
 bool is_prime(int number) {
     if (number % 2 == 0)
         return false;
-    double max = sqrtf(number)+1;
+    float max = sqrtf(number)+1;
     for (int i = 3; i < max; i += 2) {
         if (number % i == 0) {
             return false;
@@ -40,26 +40,30 @@ bool is_prime(int number) {
 __global__
 void loop_prime(int max,int pas,int * j) {
     int index = threadIdx.x + blockIdx.x * blockDim.x;;
-    
-    for (int i = index; i < max; i += pas) {
+    int i = index;
+    if (i%2==0){
+      i+=pas+1;
+    }
+    //printf("%d ",i);
+    for (; i < max; i += pas*2) {
         if (is_prime(i)) {
             j[index]++;
         }
     }
-    printf("%d ",j[index]);
+    //printf("%d ",j[index]);
 }
 
 void go(const int max, const int number_thread) {
     int nbBlock = number_thread;
     int nbThread = 64;
     int nb = nbBlock * nbThread;
-    
+
     int j = 0;
     printf("Prime Benchmark : %d\n", max);
-    
+
     int ha[nb];
     int *da;
-    
+
 
     cudaMalloc((void **)&da, nb*sizeof(int));
 
@@ -70,12 +74,9 @@ void go(const int max, const int number_thread) {
     cudaMemcpy(da, ha, nb*sizeof(int), cudaMemcpyHostToDevice);
 
     loop_prime<<<nbBlock, nbThread>>>(max,nb,da);
-    
-    cudaDeviceSynchronize();
-    
+
     cudaMemcpy(ha, da, nb*sizeof(int), cudaMemcpyDeviceToHost);
-    
-    
+
     for (int i = 0; i<nb; ++i) {
         j+=ha[i];
     }
