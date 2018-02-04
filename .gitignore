@@ -59,3 +59,4 @@ cs/obj/
 c/CMakeLists\.txt
 
 prime_*
+*.class
