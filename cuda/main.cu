@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+
 __device__
 bool is_prime(int number) {
     if (number % 2 == 0)
@@ -35,6 +36,7 @@ bool is_prime(int number) {
     }
     return true;
 }
+
 __global__
 void loop_prime(int max,int pas,int * j) {
     int index = threadIdx.x + blockIdx.x * blockDim.x;;
