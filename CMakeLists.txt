@@ -8,7 +8,7 @@ add_executable(Prime_Benchmark
         cs/Program.cs
         go/main.go
         java/Alternative.java
-        java/main.java
+        java/prime_java.java
         py/main.py
         rust/main.rs
         LICENSE.md
